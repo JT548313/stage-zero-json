@@ -1,6 +1,7 @@
 package com.barclays.masterjson.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.barclays.masterjson.service.MasterJsonService;
@@ -13,7 +14,6 @@ public class MasterJsonController {
 	public MasterJsonController() {
 		super();
 		this.masterJsonService = new MasterJsonService();
-		// TODO Auto-generated constructor stub
 	}
 
 	@GetMapping("/")
@@ -21,34 +21,47 @@ public class MasterJsonController {
 		return "Greetings from Spring Boot!!";
 	}
 
+	/**
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/api/v1/masterjson/download")
-	public void fetchMasterJsonIndex() throws Exception {
+	public String fetchMasterJsonIndex() throws Exception {
 		if (masterJsonService.downloadMasterJsonRepo()) {
 			System.out.println("Success");
-			System.exit(0);
+			return "Meta Json downloaded";
 		} else
-			System.out.println("Failure");
-		System.exit(1);
+			return "Meta Json download failed";
 	}
 	
+	/**
+	 * @param name
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/api/v1/pattern/name/{name}")
-	public void fetchPatternByName() throws Exception {
-		if (masterJsonService.fetchPatternByName()) {
+	public String fetchPatternByName(@PathVariable String name) throws Exception {
+		if (masterJsonService.fetchPatternByName(name)!= null) {
 			System.out.println("Success");
-			System.exit(0);
+			return masterJsonService.fetchPatternByName(name);
 		} else
 			System.out.println("Failure");
-		System.exit(1);
+		return "Search Pattern by name: Failure";
 	}
 	
+	/**
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	@GetMapping("/api/v1/pattern/id/{id}")
-	public void fetchPatternById() throws Exception {
-		if (masterJsonService.fetchPatternById()) {
+	public String fetchPatternById(@PathVariable String id) throws Exception {
+		if (masterJsonService.fetchPatternById(id) != null) {
 			System.out.println("Success");
-			System.exit(0);
+			return masterJsonService.fetchPatternById(id);
 		} else
 			System.out.println("Failure");
-		System.exit(1);
+		return "Search Pattern by id: Failure";
 	}
 
 }

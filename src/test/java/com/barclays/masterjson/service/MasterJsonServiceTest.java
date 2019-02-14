@@ -1,5 +1,6 @@
 package com.barclays.masterjson.service;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class MasterJsonServiceTest {
 
 	@Autowired
 	private MasterJsonService masterJsonService;
-	
+
 	@Before
 	public void setup() {
 	}
@@ -34,8 +35,28 @@ public class MasterJsonServiceTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		assertTrue(result);
+	}
+
+	@Test
+	public void downloadMasterJsonRepoFailureTest() {
+
+		boolean result = false;
+		try {
+			result = masterJsonService.downloadMasterJsonRepo();
+		} catch (NoWorkTreeException | IOException | GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(result);
+	}
+
+	@Test
+	public void fetchPatternByNameTest() {
+
+		String result = null;
+		result = masterJsonService.fetchPatternByName("Jaya");
+		assertNotNull(result);
 	}
 
 }

@@ -2,6 +2,7 @@ package com.barclays.masterjson.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;
@@ -14,7 +15,13 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.barclays.masterjson.beans.PipelinePatterns;
+import com.barclays.masterjson.beans.PipelinePattern;
 import com.barclays.masterjson.Exception.LocalRepoNotCleanException;
+import com.barclays.masterjson.util.MasterJsonUtil;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class MasterJsonService {
@@ -104,14 +111,60 @@ public class MasterJsonService {
 
 	}
 
-	public boolean fetchPatternByName() {
+	public String fetchPatternByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Patterns.json");
+		ArrayList<PipelinePattern> patternList = null;
+		String patternJson = null;
+		ObjectMapper mapper = new ObjectMapper();
+		PipelinePatterns patterns = null;
+		try {
+			patterns = mapper.readValue(jp, PipelinePatterns.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		patternList = (ArrayList<PipelinePattern>) patterns.getPatterns();
+
+		for (PipelinePattern pattern : patternList) {
+			if (pattern.getDisplay().getName().equalsIgnoreCase(name))
+				try {
+					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pattern);
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+
+		return patternJson;
 	}
 
-	public boolean fetchPatternById() {
+	public String fetchPatternById(String id) {
 		// TODO Auto-generated method stub
-		return false;
-	}
+		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Patterns.json");
+		ArrayList<PipelinePattern> patternList = null;
+		String patternJson = null;
+		ObjectMapper mapper = new ObjectMapper();
+		PipelinePatterns patterns = null;
+		try {
+			patterns = mapper.readValue(jp, PipelinePatterns.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		patternList = (ArrayList<PipelinePattern>) patterns.getPatterns();
 
+		for (PipelinePattern pattern : patternList) {
+			if (pattern.getId().getName().equalsIgnoreCase(id))
+				try {
+					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pattern);
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+
+		return patternJson;
+	}
+	
 }
