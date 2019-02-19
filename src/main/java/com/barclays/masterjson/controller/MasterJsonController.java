@@ -33,7 +33,7 @@ public class MasterJsonController {
 		} else
 			return "Meta Json download failed";
 	}
-	
+
 	/**
 	 * @param name
 	 * @return
@@ -41,14 +41,14 @@ public class MasterJsonController {
 	 */
 	@GetMapping("/api/v1/pattern/name/{name}")
 	public String fetchPatternByName(@PathVariable String name) throws Exception {
-		if (masterJsonService.fetchPatternByName(name)!= null) {
+		if (masterJsonService.fetchPatternByName(name) != null) {
 			System.out.println("Success");
 			return masterJsonService.fetchPatternByName(name);
 		} else
 			System.out.println("Failure");
 		return "Search Pattern by name: Failure";
 	}
-	
+
 	/**
 	 * @param id
 	 * @return
@@ -59,6 +59,51 @@ public class MasterJsonController {
 		if (masterJsonService.fetchPatternById(id) != null) {
 			System.out.println("Success");
 			return masterJsonService.fetchPatternById(id);
+		} else
+			System.out.println("Failure");
+		return "Search Pattern by id: Failure";
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/api/v1/module/id/{id}")
+	public String modulePatternById(@PathVariable String id) throws Exception {
+		if (masterJsonService.fetchPatternById(id) != null) {
+			System.out.println("Success");
+			return masterJsonService.fetchPatternById(id);
+		} else
+			System.out.println("Failure");
+		return "Search Pattern by id: Failure";
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/api/v1/module/name/{name}")
+	public String modulePatternByName(@PathVariable String name) throws Exception {
+		if (masterJsonService.fetchPatternById(name) != null) {
+			System.out.println("Success");
+			return masterJsonService.fetchPatternById(name);
+		} else
+			System.out.println("Failure");
+		return "Search Pattern by id: Failure";
+	}
+
+	/**
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/api/v1/module/reference/{$ref}")
+	public String modulePatternByReference(@PathVariable String $ref) throws Exception {
+		if (masterJsonService.fetchModuleParamsByReference($ref) != null) {
+			System.out.println("Success");
+			return masterJsonService.fetchModuleParamsByReference($ref);
 		} else
 			System.out.println("Failure");
 		return "Search Pattern by id: Failure";

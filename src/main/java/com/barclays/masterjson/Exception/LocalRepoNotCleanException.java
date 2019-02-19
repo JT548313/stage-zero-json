@@ -1,4 +1,4 @@
-package com.barclays.masterjson.Exception;
+package com.barclays.masterjson.exception;
 
 public class LocalRepoNotCleanException extends Exception{
 

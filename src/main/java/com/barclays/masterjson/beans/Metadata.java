@@ -1,6 +1,9 @@
 package com.barclays.masterjson.beans;
 
-public class Display {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Metadata {
 	
 	String name;
 	String description;

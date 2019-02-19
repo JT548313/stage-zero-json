@@ -1,10 +1,6 @@
 buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE")
-    }
+	repositories { mavenCentral() }
+	dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.5.RELEASE") }
 }
 
 apply plugin: 'java'
@@ -14,37 +10,54 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 bootJar {
- 	mainClassName= 'com.barclays.masterjson.Main'
-    baseName = 'gs-fetch-stage-zero-jsons'
-    version =  '0.4.0'   
+	mainClassName= 'com.barclays.masterjson.Main'
+	baseName = 'gs-fetch-stage-zero-jsons'
+	version =  '0.4.0'
 }
 
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    mavenCentral()
-    jcenter()
+	// Use jcenter for resolving your dependencies.
+	// You can declare any Maven/Ivy/file repository here.
+	mavenCentral()
+	jcenter()
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")    
-    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
-    // https://mvnrepository.com/artifact/commons-io/commons-io
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.0'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
 	compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    // https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
+	// https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit
 	compile group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '2.2.0.201212191850-r'
-    
+
 	compile group: 'org.springframework.boot', name: 'spring-boot-test-autoconfigure', version: '2.1.2.RELEASE'
+
+	compile("org.springframework.boot:spring-boot-starter-web:1.1.10.RELEASE") {
+		exclude module: "spring-boot-starter-tomcat"
+		exclude module: "spring-boot-starter-logging"
+		exclude module: "logback-classic"
+	}
+	compile("org.springframework.boot:spring-boot-starter-actuator:1.1.10.RELEASE") { exclude module: "logback-classic" }
+	compile group: 'joda-time', name: 'joda-time', version: '2.3'
+
+	compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.0.0'
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.3.+'
+	compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 	
 	// required if you want to use Mockito for unit tests
 	testCompile 'org.mockito:mockito-core:2.7.22'
-		
+
 	// Spring Boot Framework Test Dependencies
 	testCompile 'junit:junit:4.12'
 	testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 	testCompile ("org.springframework.boot:spring-boot-starter-test")
-	
+
+}
+
+tasks.withType(Test) {
+	scanForTestClasses = false
+	include "**/**/*Test.class" // whatever Ant pattern matches your test class files
 }

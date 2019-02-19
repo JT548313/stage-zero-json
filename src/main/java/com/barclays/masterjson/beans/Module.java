@@ -3,48 +3,77 @@ package com.barclays.masterjson.beans;
 import java.util.ArrayList;
 
 public class Module {
-	Id id;
-	Display display;
-	Location location;
+	String id;
+	Metadata metadata;
 	String stage;
-	LifeTime lifetime;
-	ArrayList<Input> Inputs = new ArrayList<Input>();
-	
-	public Id getId() {
+	Validity validity;
+	String $ref;
+	ArrayList<String> pipelineTypes = new ArrayList<String>();
+	ArrayList<String> depends = new ArrayList<String>();
+	ArrayList<String> tags = new ArrayList<String>();
+
+	public String getId() {
 		return id;
 	}
-	public void setId(Id id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public Display getDisplay() {
-		return display;
+
+	public Metadata getMetadata() {
+		return metadata;
 	}
-	public void setDisplay(Display display) {
-		this.display = display;
+
+	public void setMetadata(Metadata metadata) {
+		this.metadata = metadata;
 	}
-	public Location getLocation() {
-		return location;
-	}
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+
 	public String getStage() {
 		return stage;
 	}
+
 	public void setStage(String stage) {
 		this.stage = stage;
 	}
-	public LifeTime getLifetime() {
-		return lifetime;
+
+	public ArrayList<String> getPipelineTypes() {
+		return pipelineTypes;
 	}
-	public void setLifetime(LifeTime lifetime) {
-		this.lifetime = lifetime;
+
+	public void setPipelineTypes(ArrayList<String> pipelineTypes) {
+		this.pipelineTypes = pipelineTypes;
 	}
-	public ArrayList<Input> getInputs() {
-		return Inputs;
+
+	public Validity getValidity() {
+		return validity;
 	}
-	public void setInputs(ArrayList<Input> inputs) {
-		Inputs = inputs;
+
+	public void setValidity(Validity validity) {
+		this.validity = validity;
 	}
-	
+
+	public ArrayList<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(ArrayList<String> tags) {
+		this.tags = tags;
+	}
+
+	public String get$ref() {
+		return $ref;
+	}
+
+	public void set$ref(String $ref) {
+		this.$ref = $ref;
+	}
+
+	public ArrayList<String> getDepends() {
+		return depends;
+	}
+
+	public void setDepends(ArrayList<String> depends) {
+		this.depends = depends;
+	}
+
 }

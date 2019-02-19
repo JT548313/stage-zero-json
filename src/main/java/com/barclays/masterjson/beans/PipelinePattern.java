@@ -4,21 +4,27 @@ import java.util.ArrayList;
 
 public class PipelinePattern {
 
-	Id id;
-	Display display;
+	String id;
+	Metadata metadata;
 	ArrayList<StageModule> stageModules= new ArrayList<StageModule>();
 	
-	public Id getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Id id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	public Display getDisplay() {
-		return display;
+	public Metadata getMetadata() {
+		return metadata;
 	}
-	public void setDisplay(Display display) {
-		this.display = display;
+	public void setMetadata(Metadata metadata) {
+		this.metadata = metadata;
+	}
+	public Metadata getDisplay() {
+		return metadata;
+	}
+	public void setDisplay(Metadata metadata) {
+		this.metadata = metadata;
 	}
 	public ArrayList<StageModule> getStageModules() {
 		return stageModules;

@@ -16,8 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.barclays.masterjson.beans.PipelinePatterns;
+import com.barclays.masterjson.beans.ScriptInputParameter;
+import com.barclays.masterjson.beans.ScriptInputParams;
+import com.barclays.masterjson.exception.LocalRepoNotCleanException;
+import com.barclays.masterjson.beans.Module;
+import com.barclays.masterjson.beans.ModuleIndex;
 import com.barclays.masterjson.beans.PipelinePattern;
-import com.barclays.masterjson.Exception.LocalRepoNotCleanException;
 import com.barclays.masterjson.util.MasterJsonUtil;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -80,9 +84,11 @@ public class MasterJsonService {
 		} catch (RepositoryNotFoundException ex) {
 
 			try {
+
 				git = Git.cloneRepository().setURI("https://github.com/JT548313/MasterJsonRepo.git")
 						.setCredentialsProvider(new UsernamePasswordCredentialsProvider("JT548313", "Manc@1234"))
 						.setDirectory(file).call();
+
 			} catch (GitAPIException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -155,7 +161,7 @@ public class MasterJsonService {
 		patternList = (ArrayList<PipelinePattern>) patterns.getPatterns();
 
 		for (PipelinePattern pattern : patternList) {
-			if (pattern.getId().getName().equalsIgnoreCase(id))
+			if (pattern.getId().equalsIgnoreCase(id))
 				try {
 					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pattern);
 				} catch (JsonProcessingException e) {
@@ -166,5 +172,78 @@ public class MasterJsonService {
 
 		return patternJson;
 	}
-	
+
+	public String fetchModuleById(String id) {
+		// TODO Auto-generated method stub
+		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Module-Index.json");
+		ArrayList<Module> moduleList = null;
+		String moduleJson = null;
+		ObjectMapper mapper = new ObjectMapper();
+		ModuleIndex moduleIndex = null;
+		try {
+			moduleIndex = mapper.readValue(jp, ModuleIndex.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		moduleList = (ArrayList<Module>) moduleIndex.getModule();
+
+		for (Module module : moduleList) {
+			if (module.getId().equalsIgnoreCase(id))
+				try {
+					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(module);
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+
+		return moduleJson;
+	}
+
+	public String fetchModuleByName(String name) {
+		// TODO Auto-generated method stub
+		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Module-Index.json");
+		ArrayList<Module> moduleList = null;
+		String moduleJson = null;
+		ObjectMapper mapper = new ObjectMapper();
+		ModuleIndex moduleIndex = null;
+		try {
+			moduleIndex = mapper.readValue(jp, ModuleIndex.class);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		moduleList = (ArrayList<Module>) moduleIndex.getModule();
+
+		for (Module module : moduleList) {
+			if (module.getMetadata().getName().equalsIgnoreCase(name))
+				try {
+					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(module);
+				} catch (JsonProcessingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+
+		return moduleJson;
+	}
+
+	public String fetchModuleParamsByReference(String $ref) {
+		// TODO Auto-generated method stub
+		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/" + $ref);
+		//ArrayList<ScriptInputParameter> paramList = null;
+		String paramJson = null;
+		ObjectMapper mapper = new ObjectMapper();
+		ScriptInputParams params = null;
+		try {
+			params = mapper.readValue(jp, ScriptInputParams.class);
+			paramJson =  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(params);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return paramJson;
+	}
+
 }

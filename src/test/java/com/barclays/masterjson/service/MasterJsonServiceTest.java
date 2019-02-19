@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.NoWorkTreeException;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class MasterJsonServiceTest {
 	@Autowired
 	private MasterJsonService masterJsonService;
 
-	@Before
-	public void setup() {
-	}
 
 	@Test
 	public void downloadMasterJsonRepoTest() {
@@ -55,8 +51,43 @@ public class MasterJsonServiceTest {
 	public void fetchPatternByNameTest() {
 
 		String result = null;
-		result = masterJsonService.fetchPatternByName("Jaya");
+		result = masterJsonService.fetchPatternByName("Java Jboss Openshift V3");
 		assertNotNull(result);
 	}
 
+	
+	@Test
+	public void fetchPatternByIdTest() {
+
+		String result = null;
+		result = masterJsonService.fetchPatternById("java-jboss-openshift-v1");
+		assertNotNull(result);
+	}
+	
+
+	@Test
+	public void fetchModuleByNameTest() {
+
+		String result = null;
+		result = masterJsonService.fetchModuleByName("OpenShift v3 Checkout");
+		assertNotNull(result);
+	}
+
+	
+	@Test
+	public void fetchModuleByIdTest() {
+
+		String result = null;
+		result = masterJsonService.fetchModuleById("osv3-preflight.1.0");
+		assertNotNull(result);
+	}
+	
+	@Test
+	public void fetchModuleParamsByReferenceTest() {
+
+		String result = null;
+		result = masterJsonService.fetchModuleParamsByReference("osv3-preflight.1.0.json");
+		System.out.println(result);
+		assertNotNull(result);
+	}
 }
