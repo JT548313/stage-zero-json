@@ -1,5 +1,7 @@
 package com.barclays.masterjson.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +12,8 @@ import com.barclays.masterjson.service.MasterJsonService;
 public class MasterJsonController {
 
 	private final MasterJsonService masterJsonService;
+	
+	private static final Logger LOG = LoggerFactory.getLogger(MasterJsonController.class);
 
 	public MasterJsonController() {
 		super();
@@ -27,11 +31,15 @@ public class MasterJsonController {
 	 */
 	@GetMapping("/api/v1/masterjson/download")
 	public String fetchMasterJsonIndex() throws Exception {
+		LOG.info("Download started");
 		if (masterJsonService.downloadMasterJsonRepo()) {
-			System.out.println("Success");
+			LOG.info("Download success");;
 			return "Meta Json downloaded";
 		} else
+		{
+			LOG.info("Download failed");
 			return "Meta Json download failed";
+		}
 	}
 
 	/**
