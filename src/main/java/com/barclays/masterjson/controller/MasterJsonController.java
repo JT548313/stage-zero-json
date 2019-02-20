@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.barclays.masterjson.reporting.RequestCorrelation;
 import com.barclays.masterjson.service.MasterJsonService;
 
 @RestController
@@ -31,14 +32,14 @@ public class MasterJsonController {
 	 */
 	@GetMapping("/api/v1/masterjson/download")
 	public String fetchMasterJsonIndex() throws Exception {
-		LOG.info("Download started");
+		LOG.info("{} Master Json Download started", RequestCorrelation.getId());
 		if (masterJsonService.downloadMasterJsonRepo()) {
-			LOG.info("Download success");;
-			return "Meta Json downloaded";
+			LOG.info("{} Master Json Download Finished", RequestCorrelation.getId());
+			return "Master Json downloaded";
 		} else
 		{
-			LOG.info("Download failed");
-			return "Meta Json download failed";
+			LOG.info("{} Master Json download failed", RequestCorrelation.getId());
+			return "Master Json download failed";
 		}
 	}
 

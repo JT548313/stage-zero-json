@@ -10,15 +10,20 @@ import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.eclipse.jgit.storage.file.FileRepository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.barclays.masterjson.beans.PipelinePatterns;
 import com.barclays.masterjson.beans.ScriptInputParameter;
 import com.barclays.masterjson.beans.ScriptInputParams;
+import com.barclays.masterjson.controller.MasterJsonController;
 import com.barclays.masterjson.exception.LocalRepoNotCleanException;
+import com.barclays.masterjson.reporting.RequestCorrelation;
 import com.barclays.masterjson.beans.Module;
 import com.barclays.masterjson.beans.ModuleIndex;
 import com.barclays.masterjson.beans.PipelinePattern;
@@ -29,6 +34,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class MasterJsonService {
+
+	private static final Logger LOG = LoggerFactory.getLogger(MasterJsonService.class);
 
 	@Autowired
 	public MasterJsonService() {
@@ -53,10 +60,12 @@ public class MasterJsonService {
 			 * Check if Local repo exists or not. If not, throw Exception, clone the repo
 			 * else execute pull command to fetch latest changes.
 			 */
-			repositoryBuilder.setGitDir(new File("./TestRepo/.git")).readEnvironment() // scan
+			FileRepository fr = repositoryBuilder.setGitDir(new File("./TestRepo/.git")).readEnvironment() // scan
 					.findGitDir() // scan up the file system tree
 					.setMustExist(true).build();
 
+			LOG.info("{} Clone of {} branch of Master Json repository exists", RequestCorrelation.getId(),
+					fr.getBranch());
 			/*
 			 * Check status of local repository if local repo have been altered stop the
 			 * execution via throwing the exception
@@ -65,6 +74,10 @@ public class MasterJsonService {
 			Status status = gitLocalRepo.status().call();
 
 			if (status.isClean()) {
+				LOG.info("{} Clone of {} branch of Master Json repository is in clean state",
+						RequestCorrelation.getId(), fr.getBranch());
+				LOG.info("{} Git Pull for {} branch of Master Json repository triggered", RequestCorrelation.getId(),
+						fr.getBranch());
 				/*
 				 * Repository exists, execute git-pull command
 				 */
@@ -72,13 +85,18 @@ public class MasterJsonService {
 						.setCredentialsProvider(new UsernamePasswordCredentialsProvider("JT548313", "Manc@1234"))
 						.call();
 
-				System.out.println("Result : " + pc.isSuccessful());
 			} else {
 				/*
 				 * Local repository has unstaged changes. Throw Server side exception and flag
 				 * end user.
 				 */
-				throw new LocalRepoNotCleanException("Request failed with HTTPS 500 error code. Local repo corrupted");
+				LOG.info(
+						"{} Clone of {} branch of Master Json repository is not in clean state. "
+								+ "LocalRepoNotCleanException thrown to UI with HTTPS 500 error code",
+						RequestCorrelation.getId(), fr.getBranch());
+
+				throw new LocalRepoNotCleanException(
+						"Request failed with HTTPS 500 error code. Clone of Master Json repository is corrupted");
 			}
 
 		} catch (RepositoryNotFoundException ex) {
@@ -91,20 +109,20 @@ public class MasterJsonService {
 
 			} catch (GitAPIException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.error("{} Git Clone failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		} catch (NoWorkTreeException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		} catch (GitAPIException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		} catch (LocalRepoNotCleanException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -127,7 +145,7 @@ public class MasterJsonService {
 		try {
 			patterns = mapper.readValue(jp, PipelinePatterns.class);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		}
 		patternList = (ArrayList<PipelinePattern>) patterns.getPatterns();
@@ -137,7 +155,7 @@ public class MasterJsonService {
 				try {
 					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pattern);
 				} catch (JsonProcessingException e) {
-					// TODO Auto-generated catch block
+					LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 					e.printStackTrace();
 				}
 		}
@@ -165,7 +183,7 @@ public class MasterJsonService {
 				try {
 					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(pattern);
 				} catch (JsonProcessingException e) {
-					// TODO Auto-generated catch block
+					LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 					e.printStackTrace();
 				}
 		}
@@ -232,13 +250,13 @@ public class MasterJsonService {
 	public String fetchModuleParamsByReference(String $ref) {
 		// TODO Auto-generated method stub
 		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/" + $ref);
-		//ArrayList<ScriptInputParameter> paramList = null;
+		// ArrayList<ScriptInputParameter> paramList = null;
 		String paramJson = null;
 		ObjectMapper mapper = new ObjectMapper();
 		ScriptInputParams params = null;
 		try {
 			params = mapper.readValue(jp, ScriptInputParams.class);
-			paramJson =  mapper.writerWithDefaultPrettyPrinter().writeValueAsString(params);
+			paramJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(params);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

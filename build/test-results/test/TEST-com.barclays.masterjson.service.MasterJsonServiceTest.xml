@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.barclays.masterjson.service.MasterJsonServiceTest" tests="7" skipped="0" failures="7" errors="0" timestamp="2019-02-19T10:12:37" hostname="DESKTOP-9EPA6PL" time="0.076">
+<testsuite name="com.barclays.masterjson.service.MasterJsonServiceTest" tests="7" skipped="0" failures="7" errors="0" timestamp="2019-02-20T13:01:01" hostname="DESKTOP-9EPA6PL" time="0.106">
   <properties/>
-  <testcase name="fetchPatternByNameTest" classname="com.barclays.masterjson.service.MasterJsonServiceTest" time="0.003">
+  <testcase name="fetchPatternByNameTest" classname="com.barclays.masterjson.service.MasterJsonServiceTest" time="0.004">
     <failure message="java.lang.IllegalStateException: Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -73,7 +73,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	... 49 more
 </failure>
   </testcase>
-  <testcase name="fetchModuleParamsByReferenceTest" classname="com.barclays.masterjson.service.MasterJsonServiceTest" time="0.001">
+  <testcase name="fetchModuleParamsByReferenceTest" classname="com.barclays.masterjson.service.MasterJsonServiceTest" time="0.0">
     <failure message="java.lang.IllegalStateException: Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -145,7 +145,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	... 49 more
 </failure>
   </testcase>
-  <testcase name="fetchModuleByNameTest" classname="com.barclays.masterjson.service.MasterJsonServiceTest" time="0.0">
+  <testcase name="fetchModuleByNameTest" classname="com.barclays.masterjson.service.MasterJsonServiceTest" time="0.001">
     <failure message="java.lang.IllegalStateException: Failed to load ApplicationContext" type="java.lang.IllegalStateException">java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -511,13 +511,13 @@ SLF4J: Found binding in [jar:file:/C:/Users/JayatiNaik/.gradle/caches/modules-2/
 SLF4J: Found binding in [jar:file:/C:/Users/JayatiNaik/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.3/7c4f3c474fb2c041d8028740440937705ebb473a/logback-classic-1.2.3.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.slf4j.impl.SimpleLoggerFactory]
-155 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.barclays.masterjson.service.MasterJsonServiceTest], using SpringBootContextLoader
-162 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.barclays.masterjson.service.MasterJsonServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-164 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.barclays.masterjson.service.MasterJsonServiceTest]: MasterJsonServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-373 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.barclays.masterjson.Main for test class com.barclays.masterjson.service.MasterJsonServiceTest
-587 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener]
-603 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@44fcbc67, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@528f9f70, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@20b3bc93, org.springframework.test.context.support.DirtiesContextTestExecutionListener@52130fc7, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@73ad9e66, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5df7eb7c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@609d8375, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2a3ac596, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@35fb3019]
-682 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@b0eb3e]
+181 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.barclays.masterjson.service.MasterJsonServiceTest], using SpringBootContextLoader
+191 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.barclays.masterjson.service.MasterJsonServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+192 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.barclays.masterjson.service.MasterJsonServiceTest]: MasterJsonServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+409 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.barclays.masterjson.Main for test class com.barclays.masterjson.service.MasterJsonServiceTest
+641 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener]
+676 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7e9909b2, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4277998d, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6833a995, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4c214560, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@7ac311cf, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@48644eb, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@710c3aef, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@37c06beb, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@556f49b5]
+783 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@33d1054]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -587,7 +587,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 49 more
-703 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@668bd24]
+797 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@2eaa0043]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -657,7 +657,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 49 more
-713 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@4eddd939]
+828 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@b61e9e7]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -727,7 +727,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 49 more
-721 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@4ef617ea]
+844 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@36fbb0c1]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -797,7 +797,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 49 more
-730 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@4ba9669c]
+864 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@645afe99]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -867,7 +867,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 49 more
-750 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@7a26e703]
+882 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@2ae0719f]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
@@ -937,7 +937,7 @@ Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback Lo
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99)
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117)
 	... 49 more
-762 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@83f4db7] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@70bd06ad]
+892 [Test worker] ERROR org.springframework.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@7f0b77a4] to prepare test instance [com.barclays.masterjson.service.MasterJsonServiceTest@61cf7775]
 java.lang.IllegalStateException: Failed to load ApplicationContext
 	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125)
 	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108)
