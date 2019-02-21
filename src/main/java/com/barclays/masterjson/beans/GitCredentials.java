@@ -1,5 +1,11 @@
 package com.barclays.masterjson.beans;
 
+/**
+ * To store Git User Credentials from config.propertoies file
+ * 
+ * @author JayatiNaik
+ *
+ */
 public class GitCredentials {
 
 	String user;

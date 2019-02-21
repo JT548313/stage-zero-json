@@ -39,36 +39,35 @@ public class MasterJsonUtil {
 
 	}
 
-	public GitCredentials readProperetyFile() throws IOException {
+	/**
+	 * This method is used to read property files.
+	 * @return
+	 * @throws IOException
+	 */
+	public Properties readProperetyFile() throws IOException {
 		GitCredentials credentials = new GitCredentials();
 		InputStream inputStream = null;
-
+		Properties prop = null;
 		try {
-			Properties prop = new Properties();
+			prop = new Properties();
 			String propFileName = "config.properties";
 
 			inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
 
 			if (inputStream != null) {
 				prop.load(inputStream);
+				
 			} else {
 				LOG.error("{} property file '\" + propFileName + \"' not found in the classpath", RequestCorrelation.getId());
 				throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
 			}
-
-			System.out.println(prop.getProperty("git.user"));
-			System.out.println(prop.getProperty("git.password"));
-			
-			// Get property values
-			credentials.setUser(prop.getProperty("git.user"));
-			credentials.setPassword(prop.getProperty("git.password"));
 
 		} catch (Exception e) {
 			LOG.error("{} property file '\" + propFileName + \"' not found in the classpath", RequestCorrelation.getId());
 		} finally {
 			inputStream.close();
 		}
-		return credentials;
+		return prop;
 	}
 	
 	public static void main(String[] args) throws IOException {

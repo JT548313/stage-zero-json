@@ -39,14 +39,6 @@ public class MasterJsonService {
 	private static final Logger LOG = LoggerFactory.getLogger(MasterJsonService.class);
 	private GitCredentials credentials;
 
-	public GitCredentials getCredentials() {
-		return credentials;
-	}
-
-	public void setCredentials(GitCredentials credentials) {
-		this.credentials = credentials;
-	}
-
 	@Autowired
 	public MasterJsonService() {
 		super();
@@ -84,7 +76,9 @@ public class MasterJsonService {
 			Git gitLocalRepo = Git.open(file);
 			Status status = gitLocalRepo.status().call();
 
-			this.setCredentials(new MasterJsonUtil().readProperetyFile());
+			credentials.setUser(new MasterJsonUtil().readProperetyFile().getProperty(MasterJsonConstants.GIT_USER));
+			credentials.setPassword(
+					new MasterJsonUtil().readProperetyFile().getProperty(MasterJsonConstants.GIT_PASSWORD));
 
 			if (status.isClean()) {
 				LOG.info("{} Clone of {} branch of Master Json repository is in clean state",
@@ -95,8 +89,8 @@ public class MasterJsonService {
 				 * Repository exists, execute git-pull command
 				 */
 				PullResult pc = Git.open(file).pull()
-						.setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.getCredentials().getUser(),
-								this.getCredentials().getPassword()))
+						.setCredentialsProvider(new UsernamePasswordCredentialsProvider(credentials.getUser(),
+								credentials.getPassword()))
 						.call();
 
 			} else {
@@ -117,11 +111,11 @@ public class MasterJsonService {
 
 			try {
 
-				LOG.info(
-						"{} No existing repo found \nClone of Master Json repository started", RequestCorrelation.getId());
+				LOG.info("{} No existing repo found \nClone of Master Json repository started",
+						RequestCorrelation.getId());
 				git = Git.cloneRepository().setURI(MasterJsonConstants.MASTER_JSON_STASH_REPO_PATH)
-						.setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.getCredentials().getUser(),
-								this.getCredentials().getPassword()))
+						.setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.credentials.getUser(),
+								this.credentials.getPassword()))
 						.setDirectory(file).call();
 
 			} catch (GitAPIException e) {
