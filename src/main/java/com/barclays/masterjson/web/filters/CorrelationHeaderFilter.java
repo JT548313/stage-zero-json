@@ -13,6 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.UUID;
 
@@ -33,6 +35,7 @@ public class CorrelationHeaderFilter implements Filter {
             throws IOException, ServletException {
 
         final HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+        final HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
         String currentCorrId = httpServletRequest.getHeader(RequestCorrelation.CORRELATION_ID_HEADER);
 
         if (!currentRequestIsAsyncDispatcher(httpServletRequest)) {
@@ -47,6 +50,7 @@ public class CorrelationHeaderFilter implements Filter {
         }
 
         filterChain.doFilter(httpServletRequest, servletResponse);
+        httpServletResponse.setHeader("x-correlationId", currentCorrId);
     }
 
 

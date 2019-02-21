@@ -19,15 +19,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.barclays.masterjson.beans.PipelinePatterns;
-import com.barclays.masterjson.beans.ScriptInputParameter;
 import com.barclays.masterjson.beans.ScriptInputParams;
-import com.barclays.masterjson.controller.MasterJsonController;
+import com.barclays.masterjson.constants.MasterJsonConstants;
 import com.barclays.masterjson.exception.LocalRepoNotCleanException;
 import com.barclays.masterjson.reporting.RequestCorrelation;
+import com.barclays.masterjson.beans.GitCredentials;
 import com.barclays.masterjson.beans.Module;
 import com.barclays.masterjson.beans.ModuleIndex;
 import com.barclays.masterjson.beans.PipelinePattern;
 import com.barclays.masterjson.util.MasterJsonUtil;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +37,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MasterJsonService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MasterJsonService.class);
+	private GitCredentials credentials;
+
+	public GitCredentials getCredentials() {
+		return credentials;
+	}
+
+	public void setCredentials(GitCredentials credentials) {
+		this.credentials = credentials;
+	}
 
 	@Autowired
 	public MasterJsonService() {
@@ -45,7 +55,7 @@ public class MasterJsonService {
 
 	public boolean downloadMasterJsonRepo() throws IOException, NoWorkTreeException, GitAPIException {
 
-		File file = new File("./TestRepo");
+		File file = new File(MasterJsonConstants.MASTER_JSON_REPO_PATH);
 		Git git = null;
 		/*
 		 * File[] files = file.listFiles(); if (files != null && files.length > 0) {
@@ -60,7 +70,8 @@ public class MasterJsonService {
 			 * Check if Local repo exists or not. If not, throw Exception, clone the repo
 			 * else execute pull command to fetch latest changes.
 			 */
-			FileRepository fr = repositoryBuilder.setGitDir(new File("./TestRepo/.git")).readEnvironment() // scan
+			FileRepository fr = repositoryBuilder
+					.setGitDir(new File(MasterJsonConstants.MASTER_JSON_REPO_PATH + "/.git")).readEnvironment() // scan
 					.findGitDir() // scan up the file system tree
 					.setMustExist(true).build();
 
@@ -73,6 +84,8 @@ public class MasterJsonService {
 			Git gitLocalRepo = Git.open(file);
 			Status status = gitLocalRepo.status().call();
 
+			this.setCredentials(new MasterJsonUtil().readProperetyFile());
+
 			if (status.isClean()) {
 				LOG.info("{} Clone of {} branch of Master Json repository is in clean state",
 						RequestCorrelation.getId(), fr.getBranch());
@@ -82,7 +95,8 @@ public class MasterJsonService {
 				 * Repository exists, execute git-pull command
 				 */
 				PullResult pc = Git.open(file).pull()
-						.setCredentialsProvider(new UsernamePasswordCredentialsProvider("JT548313", "Manc@1234"))
+						.setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.getCredentials().getUser(),
+								this.getCredentials().getPassword()))
 						.call();
 
 			} else {
@@ -103,8 +117,11 @@ public class MasterJsonService {
 
 			try {
 
-				git = Git.cloneRepository().setURI("https://github.com/JT548313/MasterJsonRepo.git")
-						.setCredentialsProvider(new UsernamePasswordCredentialsProvider("JT548313", "Manc@1234"))
+				LOG.info(
+						"{} No existing repo found \nClone of Master Json repository started", RequestCorrelation.getId());
+				git = Git.cloneRepository().setURI(MasterJsonConstants.MASTER_JSON_STASH_REPO_PATH)
+						.setCredentialsProvider(new UsernamePasswordCredentialsProvider(this.getCredentials().getUser(),
+								this.getCredentials().getPassword()))
 						.setDirectory(file).call();
 
 			} catch (GitAPIException e) {
@@ -135,9 +152,10 @@ public class MasterJsonService {
 
 	}
 
-	public String fetchPatternByName(String name) {
+	public String fetchPatternByName(String name) throws JsonParseException {
 		// TODO Auto-generated method stub
-		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Patterns.json");
+		JsonParser jp = (JsonParser) MasterJsonUtil
+				.readJsonFile(MasterJsonConstants.MASTER_JSON_REPO_PATH + "/Patterns.json");
 		ArrayList<PipelinePattern> patternList = null;
 		String patternJson = null;
 		ObjectMapper mapper = new ObjectMapper();
@@ -163,9 +181,10 @@ public class MasterJsonService {
 		return patternJson;
 	}
 
-	public String fetchPatternById(String id) {
+	public String fetchPatternById(String id) throws JsonParseException {
 		// TODO Auto-generated method stub
-		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Patterns.json");
+		JsonParser jp = (JsonParser) MasterJsonUtil
+				.readJsonFile(MasterJsonConstants.MASTER_JSON_REPO_PATH + "/Patterns.json");
 		ArrayList<PipelinePattern> patternList = null;
 		String patternJson = null;
 		ObjectMapper mapper = new ObjectMapper();
@@ -191,9 +210,10 @@ public class MasterJsonService {
 		return patternJson;
 	}
 
-	public String fetchModuleById(String id) {
+	public String fetchModuleById(String id) throws JsonParseException {
 		// TODO Auto-generated method stub
-		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Module-Index.json");
+		JsonParser jp = (JsonParser) MasterJsonUtil
+				.readJsonFile(MasterJsonConstants.MASTER_JSON_REPO_PATH + "/Module-Index.json");
 		ArrayList<Module> moduleList = null;
 		String moduleJson = null;
 		ObjectMapper mapper = new ObjectMapper();
@@ -211,7 +231,7 @@ public class MasterJsonService {
 				try {
 					return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(module);
 				} catch (JsonProcessingException e) {
-					// TODO Auto-generated catch block
+					LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 					e.printStackTrace();
 				}
 		}
@@ -219,9 +239,10 @@ public class MasterJsonService {
 		return moduleJson;
 	}
 
-	public String fetchModuleByName(String name) {
+	public String fetchModuleByName(String name) throws JsonParseException {
 		// TODO Auto-generated method stub
-		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/Module-Index.json");
+		JsonParser jp = (JsonParser) MasterJsonUtil
+				.readJsonFile(MasterJsonConstants.MASTER_JSON_REPO_PATH + "/Module-Index.json");
 		ArrayList<Module> moduleList = null;
 		String moduleJson = null;
 		ObjectMapper mapper = new ObjectMapper();
@@ -229,7 +250,7 @@ public class MasterJsonService {
 		try {
 			moduleIndex = mapper.readValue(jp, ModuleIndex.class);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		}
 		moduleList = (ArrayList<Module>) moduleIndex.getModule();
@@ -247,9 +268,10 @@ public class MasterJsonService {
 		return moduleJson;
 	}
 
-	public String fetchModuleParamsByReference(String $ref) {
+	public String fetchModuleParamsByReference(String $ref) throws JsonParseException {
 		// TODO Auto-generated method stub
-		JsonParser jp = (JsonParser) MasterJsonUtil.readJsonFile("./TestRepo/" + $ref);
+		JsonParser jp = (JsonParser) MasterJsonUtil
+				.readJsonFile(MasterJsonConstants.MASTER_JSON_REPO_PATH + "/" + $ref);
 		// ArrayList<ScriptInputParameter> paramList = null;
 		String paramJson = null;
 		ObjectMapper mapper = new ObjectMapper();
@@ -258,7 +280,7 @@ public class MasterJsonService {
 			params = mapper.readValue(jp, ScriptInputParams.class);
 			paramJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(params);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			LOG.error("{} Git Operation failed with {} error", RequestCorrelation.getId(), e.getMessage());
 			e.printStackTrace();
 		}
 		return paramJson;

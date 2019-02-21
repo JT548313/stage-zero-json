@@ -6,6 +6,7 @@ dependencies/
 build/
 bin/
 /application.properties
+/config.properties
 /server.properties
 ora_ds.properties
 wmq_ds.properties
