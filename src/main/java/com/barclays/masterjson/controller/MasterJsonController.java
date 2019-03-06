@@ -31,7 +31,7 @@ public class MasterJsonController {
 	 * @throws Exception
 	 */
 	@GetMapping("/api/v1/masterjson/download")
-	public String fetchMasterJsonIndex() throws Exception {
+	public String downloadMasterJsonRepo() throws Exception {
 		LOG.info("{} Master Json Download started", RequestCorrelation.getId());
 		if (masterJsonService.downloadMasterJsonRepo()) {
 			LOG.info("{} Master Json Download Finished", RequestCorrelation.getId());
@@ -43,6 +43,24 @@ public class MasterJsonController {
 		}
 	}
 
+	
+	/**
+	 * @return
+	 * @throws Exception
+	 */
+	@GetMapping("/api/v1/masterjson/validation")
+	public String validateMasterJsons() throws Exception {
+		LOG.info("{} Master Json Validation started", RequestCorrelation.getId());
+		if (masterJsonService.validateMasterJson()) {
+			LOG.info("{} Master Json Validation Completed", RequestCorrelation.getId());
+			return "Master Json validated";
+		} else
+		{
+			LOG.info("{} Master Json validation failed", RequestCorrelation.getId());
+			return "Master Json validation failed";
+		}
+	}
+	
 	/**
 	 * @param name
 	 * @return

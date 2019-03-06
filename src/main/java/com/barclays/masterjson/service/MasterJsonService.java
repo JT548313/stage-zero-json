@@ -25,10 +25,12 @@ import com.barclays.masterjson.constants.MasterJsonConstants;
 import com.barclays.masterjson.exception.LocalRepoNotCleanException;
 import com.barclays.masterjson.reporting.RequestCorrelation;
 import com.barclays.masterjson.beans.GitCredentials;
+import com.barclays.masterjson.beans.Message;
 import com.barclays.masterjson.beans.Module;
 import com.barclays.masterjson.beans.ModuleIndex;
 import com.barclays.masterjson.beans.PipelinePattern;
 import com.barclays.masterjson.util.MasterJsonUtil;
+import com.barclays.masterjson.validator.PatternValidator;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -148,6 +150,19 @@ public class MasterJsonService {
 
 	}
 
+	public ArrayList<Message> validateMasterJson() {
+		ArrayList<Message> messages = new ArrayList<Message>();
+		//Validate Module Index file
+		
+		
+		//Validate Patterns Index file
+		messages.addAll(PatternValidator.parsePatternIndexJson());
+		
+		//Validate Module parameter files starting with osv3
+		
+		return messages;
+	}	
+	
 	public String fetchPatternByName(String name) throws JsonParseException {
 		// TODO Auto-generated method stub
 		JsonParser jp = (JsonParser) MasterJsonUtil

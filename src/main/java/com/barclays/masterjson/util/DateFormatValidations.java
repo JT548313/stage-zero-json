@@ -39,8 +39,6 @@ public class DateFormatValidations {
 		}
 		// Parse date against ISO 8601 Date Time Regex.
 		validateISO8601DateFomat(isoDate.toString(), messages);
-		// Date should not be in the past.
-		checkForPastDate(isoDate, messages);
 		return messages;
 
 	}
@@ -49,7 +47,7 @@ public class DateFormatValidations {
 	 * @param isoDate
 	 * @param messages
 	 */
-	private static void validateISO8601DateFomat(String date, final ArrayList<Message> messages) {
+	public static void validateISO8601DateFomat(String date, final ArrayList<Message> messages) {
 
 		// Match parsed date against ISO 8601 Date time Regex
 		if (!Pattern.matches("^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])"
@@ -64,14 +62,17 @@ public class DateFormatValidations {
 	/**
 	 * @param isoDate
 	 * @param messages
+	 * @return 
 	 */
-	private static void checkForPastDate(DateTime isoDate, ArrayList<Message> messages) {
+	public static ArrayList<Message> checkForPastDate(DateTime isoDate, ArrayList<Message> messages) {
 		if (isoDate.isBefore(new DateTime())) {
 			Message m = new Message();
 			m.setClassName("DateFormatValidations");
 			m.setErrDesc("Failure!!\nFrom/To Date should not be in the past");
 			messages.add(m);
 		}
+		
+		return messages;
 
 	}
 

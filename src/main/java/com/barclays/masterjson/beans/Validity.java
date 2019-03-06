@@ -1,22 +1,22 @@
 package com.barclays.masterjson.beans;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public class Validity {
 	
-	Date notBefore;
-	Date notAfter;
+	DateTime notBefore;
+	DateTime notAfter;
 	
-	public Date getNotBefore() {
+	public DateTime getNotBefore() {
 		return notBefore;
 	}
-	public void setNotBefore(Date notBefore) {
+	public void setNotBefore(DateTime notBefore) {
 		this.notBefore = notBefore;
 	}
-	public Date getNotAfter() {
+	public DateTime getNotAfter() {
 		return notAfter;
 	}
-	public void setNotAfter(Date notAfter) {
+	public void setNotAfter(DateTime notAfter) {
 		this.notAfter = notAfter;
 	}
 

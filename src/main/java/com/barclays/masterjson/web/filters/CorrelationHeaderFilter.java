@@ -41,7 +41,7 @@ public class CorrelationHeaderFilter implements Filter {
         if (!currentRequestIsAsyncDispatcher(httpServletRequest)) {
             if (currentCorrId == null) {
                 currentCorrId = UUID.randomUUID().toString();
-                LOGGER.info("No correlationId found in Header. Generated : " + currentCorrId);
+                LOGGER.info("No correlationId found in Header. Generated Correlationid : " + currentCorrId);
             } else {
                 LOGGER.info("Found correlationId in Header : " + currentCorrId);
             }
