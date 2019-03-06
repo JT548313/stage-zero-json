@@ -11,7 +11,7 @@ public class AppConfig {
 
 	 @Bean
 	 public FilterRegistrationBean <CorrelationHeaderFilter> filterRegistrationBean() {
-	  FilterRegistrationBean <CorrelationHeaderFilter> registrationBean = new FilterRegistrationBean();
+	  FilterRegistrationBean <CorrelationHeaderFilter> registrationBean = new FilterRegistrationBean<CorrelationHeaderFilter>();
 	  CorrelationHeaderFilter correlationHeaderFilter = new CorrelationHeaderFilter();
 
 	  registrationBean.setFilter(correlationHeaderFilter);

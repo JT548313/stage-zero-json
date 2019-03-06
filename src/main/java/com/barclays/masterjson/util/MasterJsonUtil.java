@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.barclays.masterjson.beans.GitCredentials;
+import com.barclays.masterjson.constants.MasterJsonConstants;
 import com.barclays.masterjson.reporting.RequestCorrelation;
 import com.barclays.masterjson.service.MasterJsonService;
 import com.fasterxml.jackson.core.JsonFactory;
@@ -45,7 +46,6 @@ public class MasterJsonUtil {
 	 * @throws IOException
 	 */
 	public Properties readProperetyFile() throws IOException {
-		GitCredentials credentials = new GitCredentials();
 		InputStream inputStream = null;
 		Properties prop = null;
 		try {
@@ -72,7 +72,10 @@ public class MasterJsonUtil {
 	
 	public static void main(String[] args) throws IOException {
 		
-		new MasterJsonUtil().readProperetyFile();
+		Properties prop = new MasterJsonUtil().readProperetyFile();
+		
+		System.out.println(prop.getProperty(MasterJsonConstants.GIT_USER));
+		
 		
 	}
 

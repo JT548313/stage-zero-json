@@ -16,6 +16,7 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 import com.barclays.masterjson.beans.PipelinePatterns;
@@ -37,6 +38,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MasterJsonService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MasterJsonService.class);
+	
 	private GitCredentials credentials;
 
 	@Autowired

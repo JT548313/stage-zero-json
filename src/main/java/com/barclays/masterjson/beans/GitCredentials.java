@@ -1,11 +1,14 @@
 package com.barclays.masterjson.beans;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 /**
  * To store Git User Credentials from config.propertoies file
  * 
  * @author JayatiNaik
  *
  */
+@ConfigurationProperties("git")
 public class GitCredentials {
 
 	String user;

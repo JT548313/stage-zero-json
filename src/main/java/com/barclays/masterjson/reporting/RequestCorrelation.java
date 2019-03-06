@@ -2,7 +2,7 @@ package com.barclays.masterjson.reporting;
 
 public class RequestCorrelation {
 
-   public static final String CORRELATION_ID_HEADER = "correlationId";
+   public static final String CORRELATION_ID_HEADER = "X-CoreEng-Correlation-Id";
 
 
    private static final ThreadLocal<String> id = new ThreadLocal<String>();

@@ -50,7 +50,7 @@ public class CorrelationHeaderFilter implements Filter {
         }
 
         filterChain.doFilter(httpServletRequest, servletResponse);
-        httpServletResponse.setHeader("x-correlationId", currentCorrId);
+        httpServletResponse.setHeader(RequestCorrelation.CORRELATION_ID_HEADER, currentCorrId);
     }
 
 

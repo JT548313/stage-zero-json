@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.fasterxml.jackson.core.JsonParseException;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MasterJsonServiceTest {
@@ -48,7 +50,7 @@ public class MasterJsonServiceTest {
 	}
 
 	@Test
-	public void fetchPatternByNameTest() {
+	public void fetchPatternByNameTest() throws JsonParseException {
 
 		String result = null;
 		result = masterJsonService.fetchPatternByName("Java Jboss Openshift V3");
@@ -57,7 +59,7 @@ public class MasterJsonServiceTest {
 
 	
 	@Test
-	public void fetchPatternByIdTest() {
+	public void fetchPatternByIdTest() throws JsonParseException {
 
 		String result = null;
 		result = masterJsonService.fetchPatternById("java-jboss-openshift-v1");
@@ -66,7 +68,7 @@ public class MasterJsonServiceTest {
 	
 
 	@Test
-	public void fetchModuleByNameTest() {
+	public void fetchModuleByNameTest() throws JsonParseException {
 
 		String result = null;
 		result = masterJsonService.fetchModuleByName("OpenShift v3 Checkout");
@@ -75,7 +77,7 @@ public class MasterJsonServiceTest {
 
 	
 	@Test
-	public void fetchModuleByIdTest() {
+	public void fetchModuleByIdTest() throws JsonParseException {
 
 		String result = null;
 		result = masterJsonService.fetchModuleById("osv3-preflight.1.0");
@@ -83,7 +85,7 @@ public class MasterJsonServiceTest {
 	}
 	
 	@Test
-	public void fetchModuleParamsByReferenceTest() {
+	public void fetchModuleParamsByReferenceTest() throws JsonParseException {
 
 		String result = null;
 		result = masterJsonService.fetchModuleParamsByReference("osv3-preflight.1.0.json");
