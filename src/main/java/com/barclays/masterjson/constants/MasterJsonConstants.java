@@ -1,9 +1,5 @@
 package com.barclays.masterjson.constants;
 
-/**
- * @author JayatiNaik
- *
- */
 public class MasterJsonConstants {
 
 	public static String PATTERN_INDEX_JSON_URL = "C:\\Master JSON\\Patterns.json";
